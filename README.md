@@ -15,7 +15,7 @@ Open `index.html` in a browser. No install, API key, or backend is required.
 5. Ask Farmhand **What needs attention?** and **What happened in Bed 8?** Answers link to their source records.
 6. Find the Bed 8 spring-mix harvest and select **Trace lot**. The planting source and the cooler event from the same pasted chat should appear in its trace.
 7. Select **Correct** on the Bed 8 harvest, enter 22 pounds, and add the reason from the chat. The log retains the old value and reason.
-8. Ask Farm Memory or preview the local worksheet. The worksheet remains a demo template, not an official MOSA form.
+8. Ask Farmhand questions or preview the local worksheet. The worksheet remains a demo template, not an official MOSA form.
 
 The extractor and operations assistant are local rule-based prototypes, not a connected language model. They only organize information that matches the current demo rules and cannot reason over arbitrary farm documents. They do not infer entries spanning multiple quantities in one line. A relative date such as “today” is shown as a proposed date and requires explicit confirmation. Saved records, lot handling events, and correction history use this browser's local storage and do not sync between devices. The farm map and planting source are fictional context. Sample chats are invented and are not imported from or connected to iMessage. No sensor, weather, inventory, or MOSA system is connected.
 

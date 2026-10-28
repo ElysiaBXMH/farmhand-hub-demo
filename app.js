@@ -179,7 +179,7 @@ function renderDrafts() {
     </div>
     ${draft.dateRelative ? `<label class="relative-date-confirm"><input type="checkbox" data-draft-index="${index}" data-draft-key="dateConfirmed" required ${draft.dateConfirmed ? 'checked' : ''}><span>Confirm “today” as ${escapeHtml(formatDate(draft.date))}. This date is based on when the note is reviewed.</span></label>` : ''}
     ${draft.activity !== 'Harvest' ? `<div class="event-source-note">${draft.activity === 'Correction review' && draft.quantity ? `Suggested correction: ${escapeHtml(draft.quantity)} ${escapeHtml(draft.unit)}. Not applied automatically; use “Correct” on the saved harvest row.` : 'Farm event · captured as an operational note; it will not change inventory or certification records.'}</div>` : ''}
-    ${draft.plantingId ? `<div class="planting-match"><span>↳</span><span>Possible planting match: <a href="#planting-p104">${escapeHtml(draft.plantingId)} · ${escapeHtml(plantingMemory.find((item) => item.id === draft.plantingId)?.crop)} · ${escapeHtml(plantingMemory.find((item) => item.id === draft.plantingId)?.field)}</a></span></div>` : ''}
+    ${draft.plantingId ? `<div class="planting-match"><span>↳</span><span>Possible planting match: <a href="#farm-map">${escapeHtml(draft.plantingId)} · ${escapeHtml(plantingMemory.find((item) => item.id === draft.plantingId)?.crop)} · ${escapeHtml(plantingMemory.find((item) => item.id === draft.plantingId)?.field)}</a></span></div>` : ''}
   </article>`).join('');
   updateDraftStatus();
 }
@@ -220,7 +220,7 @@ function renderRecords() {
     byId('records-wrap').innerHTML = `<div class="records-empty">${records.length ? 'No work log entries match your search.' : 'No work log entries yet. Confirm a reviewed batch above to start your farm history.'}</div>`;
     return;
   }
-  byId('records-wrap').innerHTML = `<div class="log-table-scroll"><table class="log-table"><thead><tr><th>DATE</th><th>EVENT</th><th>CROP / SUBJECT</th><th>AMOUNT</th><th>FIELD / BLOCK</th><th>TRACE</th><th>REPORTED BY</th><th>SOURCE</th><th>ACTIONS</th><th></th></tr></thead><tbody>${found.map((record) => { const planting = plantingMemory.find((item) => item.id === record.plantingId); return `<tr id="harvest-${escapeHtml(record.id)}"><td class="date-cell">${escapeHtml(formatDate(record.date))}${record.dateWasRelative ? '<small class="date-basis">Confirmed from “today”</small>' : ''}</td><td><span class="activity-chip">${escapeHtml(record.activity || 'Harvest')}</span>${record.status ? `<small class="followup-badge">${escapeHtml(record.status)}</small>` : ''}</td><td><span class="crop-chip"><span>✿</span>${escapeHtml(record.crop || '—')}</span></td><td class="amount-cell">${record.quantity ? `${escapeHtml(record.quantity)} ${escapeHtml(record.unit)}` : '—'}</td><td>${escapeHtml(record.field || 'Needs location')}</td><td>${planting ? `<a class="source-link" href="#planting-p104">${escapeHtml(planting.id)} · ${escapeHtml(planting.seedRef)}</a>` : record.lotId ? `<span class="lot-id-chip">${escapeHtml(record.lotId)}</span>` : '—'}</td><td>${escapeHtml(record.crew || '—')}</td><td class="note-cell"><details class="source-details"><summary>${escapeHtml(record.notes || 'View source')}</summary><div class="source-quote">${escapeHtml(record.sourceExcerpt || record.notes)}</div>${record.history?.length ? `<details><summary>Revision history (${record.history.length})</summary>${record.history.map((item) => `<div class="history-item">${escapeHtml(item.at)} · ${escapeHtml(item.before)} → ${escapeHtml(item.after)}<br>${escapeHtml(item.reason)}</div>`).join('')}</details>` : ''}</details></td><td><button class="form-button" type="button" data-lot="${escapeHtml(record.id)}">${record.activity === 'Harvest' ? 'Trace lot' : 'Details'}</button>${record.activity === 'Harvest' ? `<button class="form-button correction-button" type="button" data-correct="${escapeHtml(record.id)}">Correct</button>` : ''}</td><td><button class="delete-button" type="button" aria-label="Delete ${escapeHtml(record.crop)} record" data-delete="${escapeHtml(record.id)}">×</button></td></tr>`; }).join('')}</tbody></table></div>`;
+  byId('records-wrap').innerHTML = `<div class="log-table-scroll"><table class="log-table"><thead><tr><th>DATE</th><th>EVENT</th><th>CROP / SUBJECT</th><th>AMOUNT</th><th>FIELD / BLOCK</th><th>TRACE</th><th>REPORTED BY</th><th>SOURCE</th><th>ACTIONS</th><th></th></tr></thead><tbody>${found.map((record) => { const planting = plantingMemory.find((item) => item.id === record.plantingId); return `<tr id="harvest-${escapeHtml(record.id)}"><td class="date-cell">${escapeHtml(formatDate(record.date))}${record.dateWasRelative ? '<small class="date-basis">Confirmed from “today”</small>' : ''}</td><td><span class="activity-chip">${escapeHtml(record.activity || 'Harvest')}</span>${record.status ? `<small class="followup-badge">${escapeHtml(record.status)}</small>` : ''}</td><td><span class="crop-chip"><span>✿</span>${escapeHtml(record.crop || '—')}</span></td><td class="amount-cell">${record.quantity ? `${escapeHtml(record.quantity)} ${escapeHtml(record.unit)}` : '—'}</td><td>${escapeHtml(record.field || 'Needs location')}</td><td>${planting ? `<a class="source-link" href="#farm-map">${escapeHtml(planting.id)} · ${escapeHtml(planting.seedRef)}</a>` : record.lotId ? `<span class="lot-id-chip">${escapeHtml(record.lotId)}</span>` : '—'}</td><td>${escapeHtml(record.crew || '—')}</td><td class="note-cell"><details class="source-details"><summary>${escapeHtml(record.notes || 'View source')}</summary><div class="source-quote">${escapeHtml(record.sourceExcerpt || record.notes)}</div>${record.history?.length ? `<details><summary>Revision history (${record.history.length})</summary>${record.history.map((item) => `<div class="history-item">${escapeHtml(item.at)} · ${escapeHtml(item.before)} → ${escapeHtml(item.after)}<br>${escapeHtml(item.reason)}</div>`).join('')}</details>` : ''}</details></td><td><button class="form-button" type="button" data-lot="${escapeHtml(record.id)}">${record.activity === 'Harvest' ? 'Trace lot' : 'Details'}</button>${record.activity === 'Harvest' ? `<button class="form-button correction-button" type="button" data-correct="${escapeHtml(record.id)}">Correct</button>` : ''}</td><td><button class="delete-button" type="button" aria-label="Delete ${escapeHtml(record.crop)} record" data-delete="${escapeHtml(record.id)}">×</button></td></tr>`; }).join('')}</tbody></table></div>`;
 }
 
 function renderTwin() {
@@ -245,7 +245,7 @@ function renderTwin() {
   const linkedId = planting?.id || blockRecords.find((record) => record.plantingId)?.plantingId;
   document.querySelector('.inspector-badge').textContent = planting ? planting.id : linkedId || `${blockRecords.length} EVENTS`;
   const timeline = [];
-  if (planting) timeline.push({ date: planting.planted, title: `${planting.crop} direct-sown`, detail: `${planting.id} · seed ${planting.seedRef}`, href: '#planting-p104' });
+  if (planting) timeline.push({ date: planting.planted, title: `${planting.crop} direct-sown`, detail: `${planting.id} · seed ${planting.seedRef}`, href: '#farm-map' });
   blockRecords.forEach((record) => timeline.push({ date: record.date, title: `${record.activity}: ${record.crop || 'farm event'}${record.quantity ? ` · ${record.quantity} ${record.unit}` : ''}`, detail: record.sourceExcerpt || record.notes || 'Confirmed farm update', href: `#harvest-${record.id}` }));
   timeline.sort((a, b) => String(b.date).localeCompare(String(a.date)));
   byId('block-timeline').innerHTML = timeline.length ? timeline.slice(0, 5).map((item) => `<a class="timeline-event" href="${escapeHtml(item.href)}"><i></i><span><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(formatDate(item.date))} · ${escapeHtml(item.detail)}</small></span></a>`).join('') : '<p class="timeline-empty">No confirmed events yet. Add a field update to start this block’s operational history.</p>';
@@ -283,7 +283,7 @@ function answerOperationsQuestion(rawQuestion) {
   const harvestSummary = Object.entries(totalsByUnit).map(([unit, entries]) => `${entries.reduce((sum, record) => sum + (Number(record.quantity) || 0), 0)} ${unit} recorded across ${entries.length} harvest update${entries.length === 1 ? '' : 's'}`);
   const correctionSummary = selectedRecords.filter((record) => record.activity === 'Correction review' && record.quantity).map((record) => `Pending correction proposal: ${record.quantity} ${record.unit} for ${record.crop}${record.field ? ` at ${record.field}` : ''}; it has not been applied to the recorded harvest. Confirm which saved harvest entry it refers to before using a revised total`);
   const summary = [planted.map((item) => `${item.crop} planted ${formatDate(item.planted)} in ${item.field} (${item.id}, seed ${item.seedRef})`), harvestSummary, correctionSummary, selectedRecords.filter((record) => record.activity !== 'Harvest' && record.activity !== 'Correction review').map((record) => `${record.activity}${record.field ? ` at ${record.field}` : ''}: ${record.notes}`)].flat().filter(Boolean).join('. ');
-  const source = selectedRecords.length ? selectedRecords.slice(0, 4).map((record) => `<a href="#harvest-${escapeHtml(record.id)}">${escapeHtml(record.activity)} source ↗</a>`).join(' · ') : '<a href="#planting-p104">Open planting source ↗</a>';
+  const source = selectedRecords.length ? selectedRecords.slice(0, 4).map((record) => `<a href="#harvest-${escapeHtml(record.id)}">${escapeHtml(record.activity)} source ↗</a>`).join(' · ') : planted.length ? '<a href="#farm-map">View planting record P-104 in Farm twin ↗</a>' : '';
   answer.innerHTML = `<span class="memory-spark">✦</span><div><strong>${escapeHtml(summary)}.</strong><p>Based on saved farm records. No current sensor, weather, or live iMessage data is connected.</p>${source}</div>`;
 }
 
@@ -432,36 +432,6 @@ byId('records-wrap').addEventListener('click', (event) => {
   records = records.filter((record) => record.id !== button.dataset.delete);
   persist();
   showToast('Work log entry removed');
-});
-
-byId('ask-memory').addEventListener('click', () => {
-  const question = byId('memory-question').value.trim().toLowerCase();
-  const answer = byId('memory-answer');
-  const searchRecord = records.find((record) => {
-    const location = String(record.field || '').toLowerCase();
-    const crop = String(record.crop || '').toLowerCase();
-    const locationMatch = location && question.includes(location);
-    const cropMatch = crop && question.includes(crop);
-    return locationMatch || cropMatch;
-  });
-  const asksHarvest = /harvest|picked|pick|yield|how much|amount|crop/.test(question);
-  const record = asksHarvest ? searchRecord : null;
-  if (record) {
-    const source = record.sourceExcerpt || record.notes || 'Source message not available.';
-    const planting = plantingMemory.find((item) => item.id === record.plantingId);
-    answer.innerHTML = `<span class="memory-spark">✦</span><div><strong>${escapeHtml(record.quantity)} ${escapeHtml(record.unit)} of ${escapeHtml(record.crop)} recorded for ${escapeHtml(record.field)} on ${escapeHtml(formatDate(record.date))}.</strong><p>${planting ? `Linked planting: ${escapeHtml(planting.id)} · seed ${escapeHtml(planting.seedRef)}. ` : ''}Source message: “${escapeHtml(source)}”</p><a href="#harvest-${escapeHtml(record.id)}">Open work-log entry ↗</a></div>`;
-    return;
-  }
-  const planting = plantingMemory.find((item) => question.includes('bed 8') || question.includes('spring mix'));
-  if (!planting) {
-    answer.innerHTML = '<span class="memory-spark">?</span><p>No matching sample source found. Check the crop or bed name, or add a source to farm memory.</p>';
-    return;
-  }
-  answer.innerHTML = `<span class="memory-spark">✦</span><div><strong>${escapeHtml(planting.crop)} was planted in ${escapeHtml(planting.field)}.</strong><p>Planting date: ${escapeHtml(formatDate(planting.planted))}. Seed reference: ${escapeHtml(planting.seedRef)}.</p><a href="#planting-p104">Source: ${escapeHtml(planting.source)} ↗</a></div>`;
-});
-
-byId('memory-question').addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') byId('ask-memory').click();
 });
 
 function showLotPreview(record) {
