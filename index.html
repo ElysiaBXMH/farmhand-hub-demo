@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f5f4ed" />
+  <title>Farmhand Hub — Field Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="flipbook.css" />
+  <link rel="stylesheet" href="mosa.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="Farmhand Hub home"><span class="brand-mark">f</span><span>farmhand<span class="brand-muted">hub</span></span></a>
+      <div class="farm-switch"><span class="farm-icon">⌂</span><span><small>YOUR FARM</small><strong>Willow Creek Farm</strong></span><span class="chevron">⌄</span></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav><a class="nav-item active" href="#farm-map"><span>⌘</span> Farm twin</a><a class="nav-item" href="#capture"><span>✳</span> New update</a><a class="nav-item" href="#records"><span>▤</span> Farm work log <span class="nav-count" id="nav-count">0</span></a><a class="nav-item" href="#mosa-records"><span>▧</span> MOSA Records</a><a class="nav-item" href="#memory"><span>⌕</span> Farm memory</a></nav>
+      <div class="sidebar-bottom"><div class="help-card"><span class="help-dot">?</span><div><strong>Need a hand?</strong><p>Records are saved on this device for this demo.</p></div></div><div class="user-card"><div class="avatar">WC</div><span><strong>Willow Creek</strong><small>Farm manager</small></span><span class="chevron">•••</span></div></div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div class="crumb">Farm workspace <span>/</span> Daily work log</div><div class="top-actions"><span class="today-label" id="today-label"></span><div class="top-avatar">WC</div></div></header>
+      <section class="page-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span> FARM OPERATIONS · LIVE MEMORY</div><h1>Your farm, in one living view</h1><p>Turn field updates into a shared, traceable picture of what is happening across the farm.</p></div><div class="heading-art" aria-hidden="true">✳</div></section>
+
+      <section class="twin-section" id="farm-map">
+        <div class="twin-topline"><div><div class="section-kicker">WILLOW CREEK · OPERATIONS TWIN</div><h2>Farm at a glance <span class="live-pill"><i></i> DEMO DATA</span></h2><p class="log-description">Each block connects field activity, crop history, open questions, and harvest lots.</p></div><span class="twin-date" id="twin-date"></span></div>
+        <div class="twin-layout">
+          <section class="embedded-flipbook" aria-label="Interactive farm map and visual records">
+            <div class="embedded-flipbook-bar">
+              <div class="embedded-map-title"><span class="map-index">01</span><strong>Willow Creek · Field atlas</strong><span class="atlas-live"><i></i> SAMPLE DATA</span></div>
+              <nav class="flipbook-crumbs" id="flipbook-crumbs" aria-label="Visual page trail"></nav>
+              <button class="flipbook-brand" id="flipbook-home" type="button" aria-label="Return to farm map">Map overview</button>
+            </div>
+            <section class="flipbook-stage" id="flipbook-stage" aria-label="Interactive illustrated farm page">
+              <div class="flipbook-art" id="flipbook-art"></div>
+              <div class="flipbook-controls"><button id="flipbook-back" type="button" aria-label="Go back one page">←</button><span id="page-caption">Select a field, record, or question to explore</span></div>
+            </section>
+          </section>
+          <div class="farm-map-card map-legacy-hidden"><div class="map-label"><span>FIELD MAP</span><span>Tap a block to inspect its history</span></div><div class="farm-map" id="farm-map-grid">
+            <button class="map-block north-field" data-block="North Field"><span class="block-status status-watch">● WATCH</span><strong>North Field</strong><small>Tomatoes · 3 updates</small><span class="crop-lines">╱ ╱ ╱ ╱</span></button>
+            <button class="map-block bed-eight selected" data-block="Bed 8"><span class="block-status status-harvest">● HARVEST</span><strong>Bed 8</strong><small>Spring mix · P-104</small><span class="crop-lines">✳ ✳ ✳ ✳</span></button>
+            <button class="map-block south-tunnel" data-block="South Tunnel"><span class="block-status status-clear">● CLEAR</span><strong>South Tunnel</strong><small>Cucumbers · 1 update</small><span class="crop-lines">⌒ ⌒ ⌒</span></button>
+            <button class="map-block east-orchard" data-block="East Orchard"><span class="block-status status-clear">● CLEAR</span><strong>East Orchard</strong><small>Apples · 1 update</small><span class="crop-lines">♧ ♧ ♧</span></button>
+          </div><div class="map-legend"><span><i class="legend-dot harvest-dot"></i>Harvest activity</span><span><i class="legend-dot watch-dot"></i>Needs attention</span><span><i class="legend-dot clear-dot"></i>No open issue</span></div></div>
+          <aside class="twin-inspector map-legacy-hidden" id="twin-inspector"><div class="inspector-kicker"><span>BLOCK PROFILE</span><span class="inspector-badge">P-104</span></div><h3 id="inspector-title">Bed 8</h3><p class="inspector-subtitle" id="inspector-subtitle">Spring mix · active harvest</p><div class="inspector-stats"><div><small>PLANTED</small><strong id="inspector-planted">Sep 10, 2026</strong></div><div><small>SEED LOT</small><strong id="inspector-seed">SM-28</strong></div></div><div class="inspector-divider"></div><strong class="timeline-title">Block timeline</strong><div class="block-timeline" id="block-timeline"></div><button class="inspector-action" id="inspect-log" type="button">Open related work log <span>↗</span></button></aside>
+        </div>
+      </section>
+      <section class="ops-assistant panel" id="ops-assistant"><div class="assistant-brand"><span class="assistant-mark">✦</span><div><div class="assistant-kicker">FARMHAND · OPERATIONS ASSISTANT</div><h2>Ask about your farm</h2><p>Answers are grounded in saved updates and the linked farm records.</p></div><span class="grounded-tag">SOURCE-LINKED</span></div><div class="assistant-prompts"><button type="button" data-question="What needs attention on the farm?">What needs attention?</button><button type="button" data-question="What happened in Bed 8?">What happened in Bed 8?</button><button type="button" data-question="How much spring mix was harvested?">How much was harvested?</button></div><div class="assistant-input-row"><input id="ops-question" type="search" placeholder="Ask about a block, crop, harvest, or issue…"><button class="primary-button" id="ask-ops" type="button">Ask Farmhand <span>→</span></button></div><div class="ops-answer" id="ops-answer" role="status" aria-live="polite"><span class="memory-spark">✦</span><p>Try a prompt or ask about a known crop or block. I’ll show the records behind my answer.</p></div></section>
+
+      <div class="content-grid">
+        <section class="panel capture-panel" id="capture">
+          <div class="panel-heading"><div class="step-number">01</div><div><h2>Share a work update</h2><p>Paste a note from the field. We’ll organize the details for you.</p></div></div>
+          <label class="field-label" for="update-text">FIELD UPDATE</label>
+          <textarea id="update-text" placeholder="Example: We harvested 42 crates of tomatoes from North Field this morning."></textarea>
+          <div class="input-footer"><span><span class="privacy-mark">▣</span> Fictional demo text · no iMessage access</span><span class="sample-actions"><button class="text-button" id="target-demo-button" type="button">Bed 8 trace demo</button><button class="text-button" id="sample-button" type="button">Load full demo chat ↗</button></span></div>
+          <button class="primary-button" id="extract-button" type="button">Organize update <span>→</span></button>
+          <div class="notice hidden" id="extract-notice" role="status"></div>
+          <div class="divider"></div>
+          <div class="mini-note"><div class="mini-icon">✦</div><p><strong>Full sample: harvest, irrigation, crop health, quality, cooler, equipment, and a correction.</strong> Save the missing-bed follow-up, ask Farmhand, trace Bed 8, then apply the suggested correction.</p></div>
+        </section>
+
+        <section class="panel review-panel" id="review">
+          <div class="panel-heading"><div class="step-number">02</div><div><h2>Review extracted records</h2><p>Check each entry. Fill missing details before saving the batch.</p></div></div>
+          <div class="review-state" id="review-state"><div class="empty-illustration"><span>✳</span></div><strong>Your record will appear here</strong><p>Start with a work update to prepare a draft.</p></div>
+          <form id="record-form" class="record-form hidden">
+            <div class="review-alert hidden" id="review-alert"><span>!</span><span><strong>Some entries need your review</strong><small>Missing details stay blank. Save unresolved facts as follow-ups instead of guessing.</small></span></div>
+            <div class="draft-summary" id="draft-summary"></div>
+            <div id="draft-records" class="draft-records"></div>
+            <button class="save-button" type="submit">Confirm & save all records <span>→</span></button>
+            <p class="required-note">* Required fields · Every saved entry is confirmed by you</p>
+          </form>
+        </section>
+      </div>
+
+      <section class="records-section" id="records">
+        <div class="records-heading"><div><div class="section-kicker">WILLOW CREEK FARM · FIELD ACTIVITY</div><h2>Farm work log <span class="record-count" id="record-count">0</span></h2><p class="log-description">A dated trail of harvests by crop, field, crew, and field conditions.</p></div><label class="search-box"><span>⌕</span><input id="search-input" type="search" placeholder="Search crop, field, crew…" aria-label="Search work log" /></label></div>
+        <div class="records-wrap" id="records-wrap"></div>
+      </section>
+      <section class="mosa-section" id="mosa-records">
+        <div class="records-heading"><div><div class="section-kicker">ORGANIC CERTIFICATION · TRACEABLE FIELD RECORDS</div><h2>MOSA Records</h2><p class="log-description">Build a reviewable field activity log from confirmed entries in your Farm Work Log.</p></div><span class="mosa-live" id="mosa-source-count">0 confirmed records available</span></div>
+        <div class="mosa-panel panel">
+          <div class="mosa-intro"><div><strong>Field Activity Log</strong><p>Choose the fields and dates to include. Review every row before exporting.</p></div><span class="mosa-badge">MOSA-ALIGNED WORKING LOG</span></div>
+          <div class="mosa-filters">
+            <label><span>FIELD / BED</span><select id="mosa-field"><option value="*">All fields</option></select></label>
+            <label><span>FROM</span><input id="mosa-from" type="text" inputmode="numeric" placeholder="YYYY-MM-DD" aria-label="Start date (YYYY-MM-DD)" autocomplete="off"></label>
+            <label><span>THROUGH</span><input id="mosa-through" type="text" inputmode="numeric" placeholder="YYYY-MM-DD" aria-label="End date (YYYY-MM-DD)" autocomplete="off"></label>
+            <button class="primary-button" id="mosa-generate" type="button">Generate log <span>→</span></button>
+          </div>
+          <div id="mosa-status" class="mosa-status" role="status" aria-live="polite">Confirmed work log entries will appear here. Unresolved correction proposals are excluded.</div>
+          <div id="mosa-coverage" class="mosa-coverage" aria-live="polite"></div>
+          <div id="mosa-table-wrap" class="mosa-table-wrap"><div class="mosa-empty">Select a date range and generate your activity log.</div></div>
+          <div class="mosa-actions"><div><button id="mosa-review-all" class="secondary-button" type="button" disabled>Mark all reviewed</button><span id="mosa-review-state">Generate a log to begin review.</span></div><div><button id="mosa-csv" class="secondary-button" type="button" disabled>Download CSV</button><button id="mosa-pdf" class="primary-button" type="button" disabled>Download PDF <span>↓</span></button></div></div>
+          <p class="mosa-footnote">This working log helps organize and trace farm records; it is not an official MOSA form or a certification decision. Review missing details with your certifier. Source records remain unchanged.</p>
+        </div>
+      </section>
+      <section class="memory-section" id="memory">
+        <div class="records-heading"><div><div class="section-kicker">SHARED FARM KNOWLEDGE · FICTIONAL DEMO SOURCE</div><h2>Ask farm memory</h2><p class="log-description">Answers come from the sample planting log below and show their source.</p></div></div>
+        <div class="memory-grid">
+          <div class="memory-ask panel"><label class="field-label" for="memory-question">ASK A FARM QUESTION</label><div class="memory-search"><input id="memory-question" type="search" placeholder="e.g. What was planted in Bed 8?" /><button class="primary-button" id="ask-memory" type="button">Ask <span>→</span></button></div><div class="memory-answer" id="memory-answer"><span class="memory-spark">✦</span><p>Ask about a crop or bed to find a note in farm memory.</p></div></div>
+          <article class="planting-source" id="planting-p104"><div class="source-topline"><span class="source-kind">PLANTING LOG</span><span class="source-id">P-104</span></div><h3>Spring mix · Bed 8</h3><p>Direct-sown Sep 10, 2026 · seed reference SM-28</p><div class="source-meta"><span>Fictional sample source</span><span>Updated Sep 10, 2026</span></div><p class="source-excerpt">“Spring mix was direct-sown in Bed 8. Use seed reference SM-28 when tracing this planting.”</p></article>
+        </div>
+      </section>
+      <footer>Farmhand Hub <span>·</span> Demo workspace with fictional farm data</footer>
+    </main>
+  </div>
+  <dialog id="lot-dialog" class="lot-dialog"><div class="lot-dialog-head"><div><div class="section-kicker">LOCAL DEMO TEMPLATE · NOT AN OFFICIAL FORM</div><h2 id="lot-dialog-title">Harvest lot record</h2><p>Review the evidence, planting link, and post-harvest handling recorded for this lot.</p></div><button class="close-dialog" id="close-lot" type="button" aria-label="Close">×</button></div><div id="lot-preview"></div><div class="dialog-actions"><button class="secondary-button" id="close-lot-secondary" type="button">Close</button><button class="primary-button" id="print-lot" type="button">Print preview <span>↗</span></button></div></dialog>
+  <div class="toast hidden" id="toast" role="status"></div>
+  <script src="demo-seed.js"></script>
+  <script src="app.js"></script>
+  <script src="flipbook.js"></script>
+  <script src="mosa.js"></script>
+</body>
+</html>
